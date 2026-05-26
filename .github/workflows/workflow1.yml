@@ -1,6 +1,19 @@
 name: First Test Workflow
 on: push
 jobs:
+    lint: 
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v6
+        - name: Install Node.js
+          uses: actions/setup-node@v6
+          with:
+            node-version: '24'
+        - name: Install dependencies
+          run: npm ci
+        - name: Run lint
+          run: npm run lint
     test:
       runs-on: ubuntu-latest
       steps:
@@ -14,3 +27,16 @@ jobs:
           run: npm ci
         - name: Run test
           run: npm test
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v6
+        - name: Install Node.js
+          uses: actions/setup-node@v6
+          with:
+            node-version: '24'
+        - name: Install dependencies
+          run: npm ci
+        - name: Run build
+          run: npm run build
